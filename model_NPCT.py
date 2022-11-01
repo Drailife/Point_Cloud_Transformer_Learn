@@ -1,7 +1,8 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from util import sample_and_group 
+from util import sample_and_group
 
 class Local_op(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -12,9 +13,9 @@ class Local_op(nn.Module):
         self.bn2 = nn.BatchNorm1d(out_channels)
 
     def forward(self, x):
-        b, n, s, d = x.size()  # torch.Size([32, 512, 32, 6]) 
-        x = x.permute(0, 1, 3, 2)   
-        x = x.reshape(-1, d, s) 
+        b, n, s, d = x.size()  # torch.Size([32, 512, 32, 6])
+        x = x.permute(0, 1, 3, 2)
+        x = x.reshape(-1, d, s)
         batch_size, _, N = x.size()
         x = F.relu(self.bn1(self.conv1(x))) # B, D, N
         x = F.relu(self.bn2(self.conv2(x))) # B, D, N
@@ -22,20 +23,19 @@ class Local_op(nn.Module):
         x = x.reshape(b, n, -1).permute(0, 2, 1)
         return x
 
-class Pct(nn.Module):
+class NPct(nn.Module):
+    # (NPCT, with point embedding and self-attention)
     def __init__(self, args, output_channels=40):
-        super(Pct, self).__init__()
+        super(NPct, self).__init__()
         self.args = args
         self.conv1 = nn.Conv1d(3, 64, kernel_size=1, bias=False)
-        self.conv2 = nn.Conv1d(64, 64, kernel_size=1, bias=False)
+        self.conv2 = nn.Conv1d(64, 256, kernel_size=1, bias=False)
         self.bn1 = nn.BatchNorm1d(64)
-        self.bn2 = nn.BatchNorm1d(64)
-        self.gather_local_0 = Local_op(in_channels=128, out_channels=128)
-        self.gather_local_1 = Local_op(in_channels=256, out_channels=256)
+        self.bn2 = nn.BatchNorm1d(256)
 
         self.pt_last = Point_Transformer_Last(args)
 
-        self.conv_fuse = nn.Sequential(nn.Conv1d(1280, 1024, kernel_size=1, bias=False),
+        self.conv_fuse = nn.Sequential(nn.Conv1d(1024, 1024, kernel_size=1, bias=False),
                                     nn.BatchNorm1d(1024),
                                     nn.LeakyReLU(negative_slope=0.2))
 
@@ -55,15 +55,7 @@ class Pct(nn.Module):
         x = F.relu(self.bn1(self.conv1(x)))
         # B, D, N
         x = F.relu(self.bn2(self.conv2(x))) # [b 64 N]
-        x = x.permute(0, 2, 1)
-        new_xyz, new_feature = sample_and_group(npoint=512, radius=0.15, nsample=32, xyz=xyz, points=x)         
-        feature_0 = self.gather_local_0(new_feature) # [b 128 N ]
-        feature = feature_0.permute(0, 2, 1)
-        new_xyz, new_feature = sample_and_group(npoint=256, radius=0.2, nsample=32, xyz=new_xyz, points=feature) # [b 256 N]
-        feature_1 = self.gather_local_1(new_feature)
-
-        x = self.pt_last(feature_1)
-        x = torch.cat([x, feature_1], dim=1)
+        x = self.pt_last(x)
         x = self.conv_fuse(x)
         x = F.adaptive_max_pool1d(x, 1).view(batch_size, -1)
         x = F.leaky_relu(self.bn6(self.linear1(x)), negative_slope=0.2)
@@ -73,7 +65,6 @@ class Pct(nn.Module):
         x = self.linear3(x)
 
         return x
-
 class Point_Transformer_Last(nn.Module):
     def __init__(self, args, channels=256):
         super(Point_Transformer_Last, self).__init__()
@@ -90,10 +81,10 @@ class Point_Transformer_Last(nn.Module):
         self.sa4 = SA_Layer(channels)
 
     def forward(self, x):
-        # 
-        # b, 3, npoint, nsample  
+        #
+        # b, 3, npoint, nsample
         # conv2d 3 -> 128 channels 1, 1
-        # b * npoint, c, nsample 
+        # b * npoint, c, nsample
         # permute reshape
         batch_size, _, N = x.size()
 
@@ -128,12 +119,18 @@ class SA_Layer(nn.Module):
         # b, c, n
         x_k = self.k_conv(x)
         x_v = self.v_conv(x)
+        _,k_c,_ = x_k.size()
         # b, n, n
         energy = torch.bmm(x_q, x_k)
 
-        attention = self.softmax(energy)
-        attention = attention / (1e-9 + attention.sum(dim=1, keepdim=True))
+        # attention = self.softmax(energy)
+        # attention = attention / (1e-9 + attention.sum(dim=1, keepdim=True))
         # b, c, n
+        # print('x_k:', k_c)
+        # print('energy1:', energy)
+        energy = energy / math.sqrt(k_c)
+        # print('energy2:', energy)
+        attention = self.softmax(energy)
         x_r = torch.bmm(x_v, attention)
         x_r = self.act(self.after_norm(self.trans_conv(x - x_r)))
         x = x + x_r

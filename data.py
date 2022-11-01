@@ -10,16 +10,19 @@ def download():
     if not os.path.exists(DATA_DIR):
         os.mkdir(DATA_DIR)
     if not os.path.exists(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048')):
+        print(1111111)
         www = 'https://shapenet.cs.stanford.edu/media/modelnet40_ply_hdf5_2048.zip'
         zipfile = os.path.basename(www)
         os.system('wget %s; unzip %s' % (www, zipfile))
         os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
         os.system('rm %s' % (zipfile))
+    print('download ok')
 
 def load_data(partition):
-    download()
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATA_DIR = os.path.join(BASE_DIR, 'data')
+    # download()
+    # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # DATA_DIR = os.path.join(BASE_DIR, 'data')
+    DATA_DIR = '/opt/data/private/dbb/DatSet'
     all_data = []
     all_label = []
     for h5_name in glob.glob(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048', 'ply_data_%s*.h5'%partition)):
@@ -77,8 +80,10 @@ class ModelNet40(Dataset):
 
 
 if __name__ == '__main__':
+    print('begin')
     train = ModelNet40(1024)
     test = ModelNet40(1024, 'test')
-    for data, label in train:
-        print(data.shape)
-        print(label.shape)
+    print(len(train))
+    # for data, label in train:
+    #     print(data.shape)  # (1024, 3)
+    #     print(label.shape)

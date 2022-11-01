@@ -1,7 +1,41 @@
 import torch
 import torch.nn.functional as F
-from pointnet2_ops import pointnet2_utils
 
+
+def get_dists(points1, points2):
+    '''
+    Calculate dists between two group points
+    :param cur_point: shape=(B, M, C)
+    :param points: shape=(B, N, C)
+    :return:
+    '''
+    B, M, C = points1.shape
+    _, N, _ = points2.shape
+    dists = torch.sum(torch.pow(points1, 2), dim=-1).view(B, M, 1) + \
+            torch.sum(torch.pow(points2, 2), dim=-1).view(B, 1, N)
+    dists -= 2 * torch.matmul(points1, points2.permute(0, 2, 1))
+    dists = torch.where(dists < 0, torch.ones_like(dists) * 1e-7, dists) # Very Important for dist = 0.
+    return torch.sqrt(dists).float()
+
+def fps(xyz, M):
+    '''
+    Sample M points from points according to farthest point sampling (FPS) algorithm.
+    :param xyz: shape=(B, N, 3)
+    :return: inds: shape=(B, M)
+    '''
+    device = xyz.device
+    B, N, C = xyz.shape
+    centroids = torch.zeros(size=(B, M), dtype=torch.long).to(device)
+    dists = torch.ones(B, N).to(device) * 1e5
+    inds = torch.randint(0, N, size=(B, ), dtype=torch.long).to(device)
+    batchlists = torch.arange(0, B, dtype=torch.long).to(device)
+    for i in range(M):
+        centroids[:, i] = inds
+        cur_point = xyz[batchlists, inds, :] # (B, 3)
+        cur_dist = torch.squeeze(get_dists(torch.unsqueeze(cur_point, 1), xyz))
+        dists[cur_dist < dists] = cur_dist[cur_dist < dists]
+        inds = torch.max(dists, dim=1)[1]
+    return centroids
 def cal_loss(pred, gold, smoothing=True):
     ''' Calculate cross entropy loss, apply label smoothing if needed. '''
 
@@ -119,13 +153,24 @@ def sample_and_group(npoint, radius, nsample, xyz, points):
         new_xyz: sampled points position data, [B, npoint, nsample, 3]
         new_points: sampled points data, [B, npoint, nsample, 3+D]
     """
+
+    """
+    xyz: torch.Size([32, 1024, 3])
+    new_xyz torch.Size([32, 512, 3])
+    points torch.Size([32, 1024, 64])
+    1_new_points: torch.Size([32, 512, 64])
+    2_new_points:  torch.Size([32, 512, 32, 128]) 
+    """
+
     B, N, C = xyz.shape
     S = npoint 
     xyz = xyz.contiguous()
 
-    fps_idx = pointnet2_utils.furthest_point_sample(xyz, npoint).long() # [B, npoint]
-    new_xyz = index_points(xyz, fps_idx) 
+    fps_idx = fps(xyz, npoint).long() # [B, npoint]
+    new_xyz = index_points(xyz, fps_idx)
+    # 1_new_points
     new_points = index_points(points, fps_idx)
+
     # new_xyz = xyz[:]
     # new_points = points[:]
 
@@ -135,5 +180,7 @@ def sample_and_group(npoint, radius, nsample, xyz, points):
     grouped_xyz_norm = grouped_xyz - new_xyz.view(B, S, 1, C)
     grouped_points = index_points(points, idx)
     grouped_points_norm = grouped_points - new_points.view(B, S, 1, -1)
+    # 2_new_points
     new_points = torch.cat([grouped_points_norm, new_points.view(B, S, 1, -1).repeat(1, 1, nsample, 1)], dim=-1)
     return new_xyz, new_points
+
