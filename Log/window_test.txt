@@ -1,0 +1,66 @@
+2022-10-31-20:53:05
+Namespace(batch_size=10, dataset='modelnet40', dropout=0.5, epochs=250, eval=False, exp_name='train', lr=0.0001, model_path='', momentum=0.9, no_cuda=False, num_points=1024, seed=1, test_batch_size=16, use_sgd=True)
+Using GPU : 0 from 1 devices
+SPct(
+  (conv1): Conv1d(3, 64, kernel_size=(1,), stride=(1,), bias=False)
+  (conv2): Conv1d(64, 256, kernel_size=(1,), stride=(1,), bias=False)
+  (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (pt_last): Point_Transformer_Last(
+    (conv1): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+    (conv2): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+    (bn1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (sa1): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+    (sa2): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+    (sa3): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+    (sa4): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+  )
+  (conv_fuse): Sequential(
+    (0): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+    (1): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): LeakyReLU(negative_slope=0.2)
+  )
+  (linear1): Linear(in_features=1024, out_features=512, bias=False)
+  (bn6): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dp1): Dropout(p=0.5, inplace=False)
+  (linear2): Linear(in_features=512, out_features=256, bias=True)
+  (bn7): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dp2): Dropout(p=0.5, inplace=False)
+  (linear3): Linear(in_features=256, out_features=40, bias=True)
+)
+Use SGD
+train total time is 20.12302041053772
+Train 0, loss: 3.009228, train acc: 0.324695, train avg acc: 0.177388

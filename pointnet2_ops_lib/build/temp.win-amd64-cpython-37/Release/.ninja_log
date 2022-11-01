@@ -1,0 +1,6 @@
+# ninja log v5
+0	17612	6889178552318070	E:/DIridescent Code/PointCloud/PCT_Pytorch/pointnet2_ops_lib/build/temp.win-amd64-cpython-37/Release/pointnet2_ops/_ext-src/src/ball_query.obj	aca9f06ecd83bb36
+56	17625	6889178552318070	E:/DIridescent Code/PointCloud/PCT_Pytorch/pointnet2_ops_lib/build/temp.win-amd64-cpython-37/Release/pointnet2_ops/_ext-src/src/interpolate.obj	2d0adeb98e8d2050
+89	17672	6889178553157295	E:/DIridescent Code/PointCloud/PCT_Pytorch/pointnet2_ops_lib/build/temp.win-amd64-cpython-37/Release/pointnet2_ops/_ext-src/src/sampling.obj	89affa08debd0b50
+61	17847	6889178554923644	E:/DIridescent Code/PointCloud/PCT_Pytorch/pointnet2_ops_lib/build/temp.win-amd64-cpython-37/Release/pointnet2_ops/_ext-src/src/group_points.obj	59550449f6451b6e
+28	18046	6889178556928051	E:/DIridescent Code/PointCloud/PCT_Pytorch/pointnet2_ops_lib/build/temp.win-amd64-cpython-37/Release/pointnet2_ops/_ext-src/src/bindings.obj	6b61053a9c4a0140
