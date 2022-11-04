@@ -1,0 +1,1064 @@
+2022-10-31-17:08:25
+Namespace(batch_size=32, dataset='modelnet40', dropout=0.5, epochs=250, eval=False, exp_name='train', lr=0.0001, model_path='', momentum=0.9, no_cuda=False, num_points=1024, seed=1, test_batch_size=16, use_sgd=True)
+Using GPU : 0 from 1 devices
+SPct(
+  (conv1): Conv1d(3, 64, kernel_size=(1,), stride=(1,), bias=False)
+  (conv2): Conv1d(64, 256, kernel_size=(1,), stride=(1,), bias=False)
+  (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (pt_last): Point_Transformer_Last(
+    (conv1): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+    (conv2): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+    (bn1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (sa1): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+    (sa2): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+    (sa3): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+    (sa4): SA_Layer(
+      (q_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (k_conv): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+      (v_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (trans_conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (after_norm): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+      (softmax): Softmax(dim=-1)
+    )
+  )
+  (conv_fuse): Sequential(
+    (0): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+    (1): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): LeakyReLU(negative_slope=0.2)
+  )
+  (linear1): Linear(in_features=1024, out_features=512, bias=False)
+  (bn6): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dp1): Dropout(p=0.5, inplace=False)
+  (linear2): Linear(in_features=512, out_features=256, bias=True)
+  (bn7): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dp2): Dropout(p=0.5, inplace=False)
+  (linear3): Linear(in_features=256, out_features=40, bias=True)
+)
+Use SGD
+train total time is 5.997997999191284
+Train 0, loss: 2.765327, train acc: 0.411034, train avg acc: 0.235244
+test total time is 0.8527369499206543
+Test 0, loss: 2.395858, test acc: 0.546596, test avg acc: 0.414779
+Model Save: checkpoints/train/models/model.t7train total time is 5.648873329162598
+Train 1, loss: 2.376948, train acc: 0.552626, train avg acc: 0.376041
+test total time is 0.9034533500671387
+Test 1, loss: 2.108950, test acc: 0.690438, test avg acc: 0.548058
+Model Save: checkpoints/train/models/model.t7train total time is 5.565394401550293
+Train 2, loss: 2.267809, train acc: 0.605049, train avg acc: 0.432493
+test total time is 0.9593205451965332
+Test 2, loss: 1.995480, test acc: 0.714749, test avg acc: 0.564773
+Model Save: checkpoints/train/models/model.t7train total time is 5.445684432983398
+Train 3, loss: 2.192826, train acc: 0.635892, train avg acc: 0.470856
+test total time is 0.8603339195251465
+Test 3, loss: 1.961048, test acc: 0.729335, test avg acc: 0.593703
+Model Save: checkpoints/train/models/model.t7train total time is 5.504445314407349
+Train 4, loss: 2.138303, train acc: 0.658489, train avg acc: 0.501959
+test total time is 0.850926399230957
+Test 4, loss: 1.907043, test acc: 0.755673, test avg acc: 0.639750
+Model Save: checkpoints/train/models/model.t7train total time is 5.394681930541992
+Train 5, loss: 2.094531, train acc: 0.675285, train avg acc: 0.517431
+test total time is 0.9036500453948975
+Test 5, loss: 1.895697, test acc: 0.752836, test avg acc: 0.634634
+train total time is 5.437267541885376
+Train 6, loss: 2.062676, train acc: 0.687195, train avg acc: 0.536790
+test total time is 0.8609471321105957
+Test 6, loss: 1.853074, test acc: 0.780389, test avg acc: 0.671866
+Model Save: checkpoints/train/models/model.t7train total time is 5.43623685836792
+Train 7, loss: 2.052721, train acc: 0.690147, train avg acc: 0.543559
+test total time is 0.8955078125
+Test 7, loss: 1.859484, test acc: 0.764992, test avg acc: 0.643930
+train total time is 5.498027801513672
+Train 8, loss: 2.033442, train acc: 0.699919, train avg acc: 0.553437
+test total time is 0.7986862659454346
+Test 8, loss: 1.869848, test acc: 0.777553, test avg acc: 0.659512
+train total time is 5.384822130203247
+Train 9, loss: 2.034270, train acc: 0.699308, train avg acc: 0.552813
+test total time is 0.9202427864074707
+Test 9, loss: 1.863500, test acc: 0.761345, test avg acc: 0.645384
+train total time is 5.407293081283569
+Train 10, loss: 2.024218, train acc: 0.706840, train avg acc: 0.564260
+test total time is 0.8772811889648438
+Test 10, loss: 1.918057, test acc: 0.736629, test avg acc: 0.598942
+train total time is 5.522088050842285
+Train 11, loss: 2.034411, train acc: 0.699613, train avg acc: 0.550156
+test total time is 0.8623809814453125
+Test 11, loss: 1.822054, test acc: 0.780794, test avg acc: 0.656547
+Model Save: checkpoints/train/models/model.t7train total time is 5.453298091888428
+Train 12, loss: 2.004027, train acc: 0.710607, train avg acc: 0.567530
+test total time is 0.8331754207611084
+Test 12, loss: 1.804716, test acc: 0.791329, test avg acc: 0.702238
+Model Save: checkpoints/train/models/model.t7train total time is 5.486569404602051
+Train 13, loss: 1.992430, train acc: 0.714984, train avg acc: 0.574813
+test total time is 0.928335428237915
+Test 13, loss: 1.861995, test acc: 0.765802, test avg acc: 0.659343
+train total time is 5.425227880477905
+Train 14, loss: 2.027660, train acc: 0.695134, train avg acc: 0.548365
+test total time is 0.8598310947418213
+Test 14, loss: 1.875057, test acc: 0.751621, test avg acc: 0.648029
+train total time is 5.61461329460144
+Train 15, loss: 2.007361, train acc: 0.704601, train avg acc: 0.563634
+test total time is 0.902782678604126
+Test 15, loss: 1.830980, test acc: 0.776337, test avg acc: 0.680436
+train total time is 5.611025810241699
+Train 16, loss: 1.999862, train acc: 0.710912, train avg acc: 0.567939
+test total time is 0.8079397678375244
+Test 16, loss: 1.825975, test acc: 0.775932, test avg acc: 0.659837
+train total time is 5.58443546295166
+Train 17, loss: 2.019945, train acc: 0.702769, train avg acc: 0.563220
+test total time is 0.825484037399292
+Test 17, loss: 1.888218, test acc: 0.745138, test avg acc: 0.617767
+train total time is 5.582252502441406
+Train 18, loss: 2.027623, train acc: 0.694931, train avg acc: 0.549454
+test total time is 0.8745429515838623
+Test 18, loss: 1.864637, test acc: 0.748379, test avg acc: 0.643308
+train total time is 5.548571348190308
+Train 19, loss: 1.975017, train acc: 0.723840, train avg acc: 0.586412
+test total time is 0.8493397235870361
+Test 19, loss: 1.828386, test acc: 0.774716, test avg acc: 0.661390
+train total time is 5.57381534576416
+Train 20, loss: 1.973314, train acc: 0.721193, train avg acc: 0.580674
+test total time is 0.9027409553527832
+Test 20, loss: 1.796610, test acc: 0.795381, test avg acc: 0.681750
+Model Save: checkpoints/train/models/model.t7train total time is 5.533893585205078
+Train 21, loss: 1.985594, train acc: 0.715900, train avg acc: 0.576720
+test total time is 0.8504507541656494
+Test 21, loss: 1.812746, test acc: 0.788088, test avg acc: 0.668703
+train total time is 5.517569303512573
+Train 22, loss: 2.008040, train acc: 0.708265, train avg acc: 0.563126
+test total time is 0.8831641674041748
+Test 22, loss: 1.810281, test acc: 0.796596, test avg acc: 0.707157
+Model Save: checkpoints/train/models/model.t7train total time is 5.500063896179199
+Train 23, loss: 2.164953, train acc: 0.641388, train avg acc: 0.497231
+test total time is 0.8762526512145996
+Test 23, loss: 2.130178, test acc: 0.619935, test avg acc: 0.504901
+train total time is 5.790363073348999
+Train 24, loss: 2.104110, train acc: 0.663884, train avg acc: 0.510442
+test total time is 0.8864128589630127
+Test 24, loss: 1.833986, test acc: 0.766207, test avg acc: 0.650593
+train total time is 5.736940860748291
+Train 25, loss: 2.016206, train acc: 0.701140, train avg acc: 0.555808
+test total time is 0.8953409194946289
+Test 25, loss: 1.967031, test acc: 0.708266, test avg acc: 0.594756
+train total time is 5.555621862411499
+Train 26, loss: 2.025048, train acc: 0.696865, train avg acc: 0.553498
+test total time is 0.8977580070495605
+Test 26, loss: 2.006229, test acc: 0.696515, test avg acc: 0.593134
+train total time is 5.606196403503418
+Train 27, loss: 2.007645, train acc: 0.708265, train avg acc: 0.566331
+test total time is 0.8139338493347168
+Test 27, loss: 1.811424, test acc: 0.788898, test avg acc: 0.690413
+train total time is 5.574495792388916
+Train 28, loss: 1.986254, train acc: 0.714984, train avg acc: 0.575910
+test total time is 0.9079608917236328
+Test 28, loss: 1.782102, test acc: 0.807131, test avg acc: 0.713971
+Model Save: checkpoints/train/models/model.t7train total time is 5.693566560745239
+Train 29, loss: 1.965739, train acc: 0.722313, train avg acc: 0.582892
+test total time is 1.0587170124053955
+Test 29, loss: 1.861374, test acc: 0.766207, test avg acc: 0.658820
+train total time is 5.647140741348267
+Train 30, loss: 1.981569, train acc: 0.720379, train avg acc: 0.579849
+test total time is 0.8519346714019775
+Test 30, loss: 1.830080, test acc: 0.773096, test avg acc: 0.645744
+train total time is 5.6131813526153564
+Train 31, loss: 1.929848, train acc: 0.740126, train avg acc: 0.607567
+test total time is 0.847623348236084
+Test 31, loss: 1.778399, test acc: 0.803079, test avg acc: 0.707041
+train total time is 5.806416749954224
+Train 32, loss: 1.923394, train acc: 0.742467, train avg acc: 0.610986
+test total time is 0.845137357711792
+Test 32, loss: 1.789595, test acc: 0.787682, test avg acc: 0.676733
+train total time is 5.632663249969482
+Train 33, loss: 1.912199, train acc: 0.750407, train avg acc: 0.620322
+test total time is 0.853571891784668
+Test 33, loss: 1.772369, test acc: 0.805105, test avg acc: 0.703477
+train total time is 5.563831806182861
+Train 34, loss: 1.900294, train acc: 0.752341, train avg acc: 0.621509
+test total time is 0.8399734497070312
+Test 34, loss: 1.743740, test acc: 0.814830, test avg acc: 0.717413
+Model Save: checkpoints/train/models/model.t7train total time is 5.4932332038879395
+Train 35, loss: 1.889362, train acc: 0.759263, train avg acc: 0.635952
+test total time is 0.8948502540588379
+Test 35, loss: 1.733812, test acc: 0.823339, test avg acc: 0.727628
+Model Save: checkpoints/train/models/model.t7train total time is 5.400578737258911
+Train 36, loss: 1.894484, train acc: 0.755700, train avg acc: 0.625765
+test total time is 0.9020223617553711
+Test 36, loss: 1.778445, test acc: 0.800243, test avg acc: 0.706506
+train total time is 5.5554423332214355
+Train 37, loss: 1.888937, train acc: 0.754581, train avg acc: 0.622554
+test total time is 1.087289810180664
+Test 37, loss: 1.723198, test acc: 0.830632, test avg acc: 0.722209
+Model Save: checkpoints/train/models/model.t7train total time is 5.665408611297607
+Train 38, loss: 1.877421, train acc: 0.759365, train avg acc: 0.635349
+test total time is 0.9259665012359619
+Test 38, loss: 1.706480, test acc: 0.836305, test avg acc: 0.735326
+Model Save: checkpoints/train/models/model.t7train total time is 5.203163385391235
+Train 39, loss: 1.878191, train acc: 0.762928, train avg acc: 0.636053
+test total time is 0.8253452777862549
+Test 39, loss: 1.735734, test acc: 0.804295, test avg acc: 0.716157
+train total time is 5.2332470417022705
+Train 40, loss: 1.866049, train acc: 0.771376, train avg acc: 0.647164
+test total time is 0.8570270538330078
+Test 40, loss: 1.734281, test acc: 0.817666, test avg acc: 0.729959
+train total time is 5.216524839401245
+Train 41, loss: 1.871409, train acc: 0.762724, train avg acc: 0.639814
+test total time is 0.8195631504058838
+Test 41, loss: 1.702299, test acc: 0.829417, test avg acc: 0.728645
+train total time is 5.145590543746948
+Train 42, loss: 1.857414, train acc: 0.775855, train avg acc: 0.655359
+test total time is 0.8382279872894287
+Test 42, loss: 1.707738, test acc: 0.832658, test avg acc: 0.746942
+train total time is 5.163401365280151
+Train 43, loss: 1.862546, train acc: 0.769340, train avg acc: 0.650396
+test total time is 0.8398892879486084
+Test 43, loss: 1.731916, test acc: 0.807131, test avg acc: 0.705448
+train total time is 5.061069965362549
+Train 44, loss: 1.863844, train acc: 0.764353, train avg acc: 0.644270
+test total time is 0.8567564487457275
+Test 44, loss: 1.699144, test acc: 0.829011, test avg acc: 0.737023
+train total time is 5.135700225830078
+Train 45, loss: 1.855110, train acc: 0.768628, train avg acc: 0.646672
+test total time is 0.8237035274505615
+Test 45, loss: 1.742993, test acc: 0.815235, test avg acc: 0.744599
+train total time is 5.165412902832031
+Train 46, loss: 1.841298, train acc: 0.780843, train avg acc: 0.666467
+test total time is 0.8178033828735352
+Test 46, loss: 1.685406, test acc: 0.842382, test avg acc: 0.763657
+Model Save: checkpoints/train/models/model.t7train total time is 5.164835453033447
+Train 47, loss: 1.833575, train acc: 0.780843, train avg acc: 0.662859
+test total time is 0.8212320804595947
+Test 47, loss: 1.695719, test acc: 0.820908, test avg acc: 0.728047
+train total time is 5.192266464233398
+Train 48, loss: 1.838310, train acc: 0.778502, train avg acc: 0.664573
+test total time is 0.8434867858886719
+Test 48, loss: 1.716676, test acc: 0.826175, test avg acc: 0.722151
+train total time is 5.240661382675171
+Train 49, loss: 1.835027, train acc: 0.780843, train avg acc: 0.666220
+test total time is 0.8374502658843994
+Test 49, loss: 1.726284, test acc: 0.811588, test avg acc: 0.718709
+train total time is 5.219752550125122
+Train 50, loss: 1.826591, train acc: 0.786340, train avg acc: 0.670173
+test total time is 0.8438816070556641
+Test 50, loss: 1.720394, test acc: 0.821718, test avg acc: 0.753326
+train total time is 5.0953528881073
+Train 51, loss: 1.830826, train acc: 0.785627, train avg acc: 0.672218
+test total time is 0.8632192611694336
+Test 51, loss: 1.699754, test acc: 0.836710, test avg acc: 0.749890
+train total time is 5.0180487632751465
+Train 52, loss: 1.821742, train acc: 0.785627, train avg acc: 0.672352
+test total time is 0.8338930606842041
+Test 52, loss: 1.687695, test acc: 0.830632, test avg acc: 0.750186
+train total time is 5.197954177856445
+Train 53, loss: 1.810104, train acc: 0.788070, train avg acc: 0.674926
+test total time is 0.859713077545166
+Test 53, loss: 1.717147, test acc: 0.816856, test avg acc: 0.737517
+train total time is 5.146216154098511
+Train 54, loss: 1.817537, train acc: 0.786849, train avg acc: 0.675308
+test total time is 0.8305881023406982
+Test 54, loss: 1.708154, test acc: 0.824554, test avg acc: 0.738017
+train total time is 5.2196946144104
+Train 55, loss: 1.814193, train acc: 0.789495, train avg acc: 0.675782
+test total time is 0.8235290050506592
+Test 55, loss: 1.679787, test acc: 0.844814, test avg acc: 0.760634
+Model Save: checkpoints/train/models/model.t7train total time is 5.214156627655029
+Train 56, loss: 1.805996, train acc: 0.794890, train avg acc: 0.681448
+test total time is 0.8162038326263428
+Test 56, loss: 1.677255, test acc: 0.833874, test avg acc: 0.751936
+train total time is 5.184764385223389
+Train 57, loss: 1.797624, train acc: 0.797740, train avg acc: 0.689255
+test total time is 0.8576383590698242
+Test 57, loss: 1.681296, test acc: 0.836305, test avg acc: 0.756006
+train total time is 5.1575844287872314
+Train 58, loss: 1.801473, train acc: 0.791938, train avg acc: 0.680824
+test total time is 0.8367621898651123
+Test 58, loss: 1.671814, test acc: 0.837520, test avg acc: 0.743326
+train total time is 5.186829566955566
+Train 59, loss: 1.789942, train acc: 0.796112, train avg acc: 0.687136
+test total time is 0.9226727485656738
+Test 59, loss: 1.664675, test acc: 0.843193, test avg acc: 0.762895
+train total time is 5.041265487670898
+Train 60, loss: 1.788907, train acc: 0.801710, train avg acc: 0.694638
+test total time is 0.8488047122955322
+Test 60, loss: 1.671910, test acc: 0.843598, test avg acc: 0.749791
+train total time is 5.179464817047119
+Train 61, loss: 1.788727, train acc: 0.797231, train avg acc: 0.686253
+test total time is 0.8213686943054199
+Test 61, loss: 1.659032, test acc: 0.848865, test avg acc: 0.776413
+Model Save: checkpoints/train/models/model.t7train total time is 5.225656509399414
+Train 62, loss: 1.785654, train acc: 0.799878, train avg acc: 0.695714
+test total time is 0.8375256061553955
+Test 62, loss: 1.650777, test acc: 0.853323, test avg acc: 0.776436
+Model Save: checkpoints/train/models/model.t7train total time is 5.263197898864746
+Train 63, loss: 1.783320, train acc: 0.800794, train avg acc: 0.694836
+test total time is 0.8428847789764404
+Test 63, loss: 1.686934, test acc: 0.835494, test avg acc: 0.741372
+train total time is 5.2526538372039795
+Train 64, loss: 1.777233, train acc: 0.804560, train avg acc: 0.698622
+test total time is 0.8761699199676514
+Test 64, loss: 1.676531, test acc: 0.838331, test avg acc: 0.754994
+train total time is 5.215250253677368
+Train 65, loss: 1.776896, train acc: 0.806393, train avg acc: 0.703207
+test total time is 0.8586835861206055
+Test 65, loss: 1.675897, test acc: 0.838736, test avg acc: 0.763023
+train total time is 5.191150903701782
+Train 66, loss: 1.775781, train acc: 0.810871, train avg acc: 0.707609
+test total time is 0.8402924537658691
+Test 66, loss: 1.664269, test acc: 0.848865, test avg acc: 0.774860
+train total time is 5.055690288543701
+Train 67, loss: 1.767399, train acc: 0.812805, train avg acc: 0.712751
+test total time is 0.8544433116912842
+Test 67, loss: 1.659286, test acc: 0.848055, test avg acc: 0.774488
+train total time is 5.231009244918823
+Train 68, loss: 1.764101, train acc: 0.810362, train avg acc: 0.706752
+test total time is 0.8467633724212646
+Test 68, loss: 1.651113, test acc: 0.851702, test avg acc: 0.783017
+train total time is 5.141831636428833
+Train 69, loss: 1.769522, train acc: 0.806087, train avg acc: 0.700449
+test total time is 0.8454878330230713
+Test 69, loss: 1.664435, test acc: 0.856564, test avg acc: 0.779006
+Model Save: checkpoints/train/models/model.t7train total time is 5.179667234420776
+Train 70, loss: 1.763557, train acc: 0.811177, train avg acc: 0.709298
+test total time is 0.8189733028411865
+Test 70, loss: 1.658705, test acc: 0.839951, test avg acc: 0.757686
+train total time is 5.213545322418213
+Train 71, loss: 1.757780, train acc: 0.815554, train avg acc: 0.717689
+test total time is 0.830113410949707
+Test 71, loss: 1.697959, test acc: 0.835494, test avg acc: 0.769343
+train total time is 5.178313255310059
+Train 72, loss: 1.750072, train acc: 0.820440, train avg acc: 0.721471
+test total time is 0.8567323684692383
+Test 72, loss: 1.631065, test acc: 0.851702, test avg acc: 0.785023
+train total time is 5.1648643016815186
+Train 73, loss: 1.754743, train acc: 0.815961, train avg acc: 0.712690
+test total time is 0.8275198936462402
+Test 73, loss: 1.648175, test acc: 0.840357, test avg acc: 0.770907
+train total time is 5.110173463821411
+Train 74, loss: 1.755272, train acc: 0.812093, train avg acc: 0.711728
+test total time is 0.8403530120849609
+Test 74, loss: 1.633420, test acc: 0.858995, test avg acc: 0.779756
+Model Save: checkpoints/train/models/model.t7train total time is 5.1938745975494385
+Train 75, loss: 1.751351, train acc: 0.816368, train avg acc: 0.720537
+test total time is 0.8538234233856201
+Test 75, loss: 1.650781, test acc: 0.841977, test avg acc: 0.762180
+train total time is 5.193814039230347
+Train 76, loss: 1.750659, train acc: 0.818200, train avg acc: 0.716034
+test total time is 0.8185644149780273
+Test 76, loss: 1.648032, test acc: 0.843598, test avg acc: 0.767105
+train total time is 5.1408491134643555
+Train 77, loss: 1.743680, train acc: 0.817182, train avg acc: 0.716680
+test total time is 0.859503984451294
+Test 77, loss: 1.648272, test acc: 0.842382, test avg acc: 0.783709
+train total time is 5.1968231201171875
+Train 78, loss: 1.741445, train acc: 0.821050, train avg acc: 0.724970
+test total time is 0.8433918952941895
+Test 78, loss: 1.615664, test acc: 0.865478, test avg acc: 0.781273
+Model Save: checkpoints/train/models/model.t7train total time is 5.26297402381897
+Train 79, loss: 1.742721, train acc: 0.817182, train avg acc: 0.721447
+test total time is 0.8544771671295166
+Test 79, loss: 1.655748, test acc: 0.842788, test avg acc: 0.764256
+train total time is 5.150135040283203
+Train 80, loss: 1.738443, train acc: 0.820745, train avg acc: 0.724921
+test total time is 0.8326132297515869
+Test 80, loss: 1.627588, test acc: 0.860211, test avg acc: 0.798802
+train total time is 5.1120641231536865
+Train 81, loss: 1.731130, train acc: 0.822883, train avg acc: 0.726191
+test total time is 0.8192956447601318
+Test 81, loss: 1.620066, test acc: 0.862237, test avg acc: 0.792721
+train total time is 5.01311182975769
+Train 82, loss: 1.729658, train acc: 0.826649, train avg acc: 0.732571
+test total time is 0.8361344337463379
+Test 82, loss: 1.647741, test acc: 0.850081, test avg acc: 0.793023
+train total time is 5.079366683959961
+Train 83, loss: 1.726280, train acc: 0.827565, train avg acc: 0.729660
+test total time is 0.8751609325408936
+Test 83, loss: 1.647562, test acc: 0.852512, test avg acc: 0.782221
+train total time is 5.182135343551636
+Train 84, loss: 1.729067, train acc: 0.826344, train avg acc: 0.729933
+test total time is 0.8253087997436523
+Test 84, loss: 1.632674, test acc: 0.850081, test avg acc: 0.778994
+train total time is 5.176107406616211
+Train 85, loss: 1.727612, train acc: 0.831230, train avg acc: 0.741011
+test total time is 0.8444850444793701
+Test 85, loss: 1.626111, test acc: 0.857780, test avg acc: 0.793855
+train total time is 5.170363664627075
+Train 86, loss: 1.723318, train acc: 0.825122, train avg acc: 0.728916
+test total time is 0.8805942535400391
+Test 86, loss: 1.625175, test acc: 0.852512, test avg acc: 0.771529
+train total time is 5.1798529624938965
+Train 87, loss: 1.716368, train acc: 0.835708, train avg acc: 0.746829
+test total time is 0.8279531002044678
+Test 87, loss: 1.609778, test acc: 0.856564, test avg acc: 0.771942
+train total time is 5.196035861968994
+Train 88, loss: 1.719660, train acc: 0.828685, train avg acc: 0.736261
+test total time is 0.8494670391082764
+Test 88, loss: 1.616014, test acc: 0.867504, test avg acc: 0.792674
+Model Save: checkpoints/train/models/model.t7train total time is 5.150693893432617
+Train 89, loss: 1.712969, train acc: 0.834792, train avg acc: 0.746365
+test total time is 0.8712000846862793
+Test 89, loss: 1.632590, test acc: 0.854538, test avg acc: 0.806244
+train total time is 5.083889722824097
+Train 90, loss: 1.715481, train acc: 0.836523, train avg acc: 0.747367
+test total time is 0.8351569175720215
+Test 90, loss: 1.604982, test acc: 0.860616, test avg acc: 0.782430
+train total time is 5.175745964050293
+Train 91, loss: 1.713256, train acc: 0.831331, train avg acc: 0.738424
+test total time is 0.8490097522735596
+Test 91, loss: 1.598654, test acc: 0.864263, test avg acc: 0.801064
+train total time is 5.1605706214904785
+Train 92, loss: 1.704724, train acc: 0.834996, train avg acc: 0.747599
+test total time is 0.8718228340148926
+Test 92, loss: 1.628570, test acc: 0.855348, test avg acc: 0.789017
+train total time is 5.124518156051636
+Train 93, loss: 1.708566, train acc: 0.834487, train avg acc: 0.744491
+test total time is 0.8162581920623779
+Test 93, loss: 1.604499, test acc: 0.870746, test avg acc: 0.798860
+Model Save: checkpoints/train/models/model.t7train total time is 5.128935813903809
+Train 94, loss: 1.704791, train acc: 0.839373, train avg acc: 0.751075
+test total time is 0.8313360214233398
+Test 94, loss: 1.590936, test acc: 0.877634, test avg acc: 0.815930
+Model Save: checkpoints/train/models/model.t7train total time is 5.211390018463135
+Train 95, loss: 1.706890, train acc: 0.834283, train avg acc: 0.750186
+test total time is 0.826434850692749
+Test 95, loss: 1.592399, test acc: 0.868720, test avg acc: 0.804424
+train total time is 5.149198770523071
+Train 96, loss: 1.709898, train acc: 0.833571, train avg acc: 0.741568
+test total time is 0.8221180438995361
+Test 96, loss: 1.611417, test acc: 0.867099, test avg acc: 0.792558
+train total time is 5.079482078552246
+Train 97, loss: 1.706509, train acc: 0.835098, train avg acc: 0.747228
+test total time is 0.8430607318878174
+Test 97, loss: 1.613013, test acc: 0.869530, test avg acc: 0.807151
+train total time is 5.413961410522461
+Train 98, loss: 1.702313, train acc: 0.838151, train avg acc: 0.750470
+test total time is 1.320390224456787
+Test 98, loss: 1.580540, test acc: 0.878039, test avg acc: 0.819058
+Model Save: checkpoints/train/models/model.t7train total time is 6.087533950805664
+Train 99, loss: 1.699858, train acc: 0.840391, train avg acc: 0.754192
+test total time is 0.8486096858978271
+Test 99, loss: 1.653977, test acc: 0.846434, test avg acc: 0.785233
+train total time is 5.16877007484436
+Train 100, loss: 1.693957, train acc: 0.841409, train avg acc: 0.754873
+test total time is 0.8412206172943115
+Test 100, loss: 1.622935, test acc: 0.859806, test avg acc: 0.795901
+train total time is 5.247593879699707
+Train 101, loss: 1.695608, train acc: 0.844971, train avg acc: 0.761556
+test total time is 0.8330729007720947
+Test 101, loss: 1.592274, test acc: 0.863452, test avg acc: 0.802587
+train total time is 5.0857343673706055
+Train 102, loss: 1.687338, train acc: 0.845582, train avg acc: 0.764544
+test total time is 0.8507275581359863
+Test 102, loss: 1.623787, test acc: 0.860616, test avg acc: 0.808500
+train total time is 5.186669111251831
+Train 103, loss: 1.689688, train acc: 0.845786, train avg acc: 0.761432
+test total time is 0.8741855621337891
+Test 103, loss: 1.615766, test acc: 0.852512, test avg acc: 0.802052
+train total time is 5.173365592956543
+Train 104, loss: 1.690406, train acc: 0.840289, train avg acc: 0.755033
+test total time is 0.8351330757141113
+Test 104, loss: 1.593583, test acc: 0.865073, test avg acc: 0.808483
+train total time is 5.086998224258423
+Train 105, loss: 1.682843, train acc: 0.844463, train avg acc: 0.761027
+test total time is 0.8374812602996826
+Test 105, loss: 1.602608, test acc: 0.854538, test avg acc: 0.799831
+train total time is 5.1792683601379395
+Train 106, loss: 1.683808, train acc: 0.841103, train avg acc: 0.759264
+test total time is 0.8111302852630615
+Test 106, loss: 1.590946, test acc: 0.877634, test avg acc: 0.814727
+train total time is 5.128339767456055
+Train 107, loss: 1.685727, train acc: 0.843546, train avg acc: 0.761044
+test total time is 0.8016369342803955
+Test 107, loss: 1.575678, test acc: 0.874797, test avg acc: 0.813651
+train total time is 5.178044557571411
+Train 108, loss: 1.678033, train acc: 0.847211, train avg acc: 0.762473
+test total time is 0.846916913986206
+Test 108, loss: 1.602102, test acc: 0.863857, test avg acc: 0.827628
+train total time is 5.15303897857666
+Train 109, loss: 1.680927, train acc: 0.846091, train avg acc: 0.765408
+test total time is 0.8108818531036377
+Test 109, loss: 1.601411, test acc: 0.869530, test avg acc: 0.816012
+train total time is 5.175767421722412
+Train 110, loss: 1.680424, train acc: 0.848229, train avg acc: 0.766281
+test total time is 0.8264777660369873
+Test 110, loss: 1.620067, test acc: 0.850486, test avg acc: 0.792116
+train total time is 5.105781555175781
+Train 111, loss: 1.678174, train acc: 0.848127, train avg acc: 0.770116
+test total time is 0.8224427700042725
+Test 111, loss: 1.576734, test acc: 0.875203, test avg acc: 0.801134
+train total time is 5.291449546813965
+Train 112, loss: 1.676650, train acc: 0.849552, train avg acc: 0.769070
+test total time is 1.0274004936218262
+Test 112, loss: 1.593815, test acc: 0.875608, test avg acc: 0.816267
+train total time is 5.147602796554565
+Train 113, loss: 1.668681, train acc: 0.852199, train avg acc: 0.775025
+test total time is 0.8772323131561279
+Test 113, loss: 1.605219, test acc: 0.880065, test avg acc: 0.826180
+Model Save: checkpoints/train/models/model.t7train total time is 5.431182622909546
+Train 114, loss: 1.670710, train acc: 0.853624, train avg acc: 0.773493
+test total time is 0.8746373653411865
+Test 114, loss: 1.574505, test acc: 0.875608, test avg acc: 0.795215
+train total time is 5.394934415817261
+Train 115, loss: 1.664969, train acc: 0.852504, train avg acc: 0.773699
+test total time is 0.7846512794494629
+Test 115, loss: 1.650995, test acc: 0.843598, test avg acc: 0.770006
+train total time is 5.534575700759888
+Train 116, loss: 1.670915, train acc: 0.849654, train avg acc: 0.769990
+test total time is 0.8667902946472168
+Test 116, loss: 1.608073, test acc: 0.865883, test avg acc: 0.807488
+train total time is 5.438241004943848
+Train 117, loss: 1.666108, train acc: 0.854031, train avg acc: 0.773481
+test total time is 0.8582797050476074
+Test 117, loss: 1.568794, test acc: 0.872771, test avg acc: 0.817890
+train total time is 5.42873215675354
+Train 118, loss: 1.665628, train acc: 0.856576, train avg acc: 0.783819
+test total time is 0.8822164535522461
+Test 118, loss: 1.587504, test acc: 0.869125, test avg acc: 0.808727
+train total time is 5.468364238739014
+Train 119, loss: 1.667014, train acc: 0.851283, train avg acc: 0.771006
+test total time is 0.8397493362426758
+Test 119, loss: 1.586562, test acc: 0.878444, test avg acc: 0.820884
+train total time is 5.145442247390747
+Train 120, loss: 1.658215, train acc: 0.856270, train avg acc: 0.778614
+test total time is 0.8727574348449707
+Test 120, loss: 1.579903, test acc: 0.876013, test avg acc: 0.813273
+train total time is 5.449747085571289
+Train 121, loss: 1.656868, train acc: 0.857797, train avg acc: 0.785606
+test total time is 0.8708040714263916
+Test 121, loss: 1.599558, test acc: 0.859806, test avg acc: 0.813297
+train total time is 5.445850610733032
+Train 122, loss: 1.659253, train acc: 0.854540, train avg acc: 0.779311
+test total time is 0.8862755298614502
+Test 122, loss: 1.568882, test acc: 0.873987, test avg acc: 0.803576
+train total time is 5.3594653606414795
+Train 123, loss: 1.654212, train acc: 0.860749, train avg acc: 0.784520
+test total time is 0.8369646072387695
+Test 123, loss: 1.563116, test acc: 0.882091, test avg acc: 0.833733
+Model Save: checkpoints/train/models/model.t7train total time is 5.404867172241211
+Train 124, loss: 1.655530, train acc: 0.859731, train avg acc: 0.782547
+test total time is 0.849816083908081
+Test 124, loss: 1.575558, test acc: 0.872771, test avg acc: 0.819012
+train total time is 5.447177886962891
+Train 125, loss: 1.654906, train acc: 0.858103, train avg acc: 0.777249
+test total time is 0.8827345371246338
+Test 125, loss: 1.580409, test acc: 0.874392, test avg acc: 0.828930
+train total time is 5.3973610401153564
+Train 126, loss: 1.645008, train acc: 0.863294, train avg acc: 0.788906
+test total time is 0.8785030841827393
+Test 126, loss: 1.537834, test acc: 0.894246, test avg acc: 0.841145
+Model Save: checkpoints/train/models/model.t7train total time is 5.270590782165527
+Train 127, loss: 1.649457, train acc: 0.859324, train avg acc: 0.784982
+test total time is 0.888739824295044
+Test 127, loss: 1.595261, test acc: 0.868720, test avg acc: 0.788424
+train total time is 5.433896780014038
+Train 128, loss: 1.641415, train acc: 0.862480, train avg acc: 0.789326
+test total time is 0.8968918323516846
+Test 128, loss: 1.558317, test acc: 0.889789, test avg acc: 0.836471
+train total time is 5.380191087722778
+Train 129, loss: 1.647255, train acc: 0.862276, train avg acc: 0.787052
+test total time is 0.8883399963378906
+Test 129, loss: 1.563451, test acc: 0.880065, test avg acc: 0.820605
+train total time is 5.489189147949219
+Train 130, loss: 1.641161, train acc: 0.865330, train avg acc: 0.793328
+test total time is 0.8670430183410645
+Test 130, loss: 1.569288, test acc: 0.873177, test avg acc: 0.803023
+train total time is 5.352058172225952
+Train 131, loss: 1.643403, train acc: 0.863599, train avg acc: 0.788313
+test total time is 0.8773746490478516
+Test 131, loss: 1.550906, test acc: 0.888574, test avg acc: 0.817134
+train total time is 5.378319025039673
+Train 132, loss: 1.645335, train acc: 0.861462, train avg acc: 0.784615
+test total time is 0.864140510559082
+Test 132, loss: 1.570247, test acc: 0.882091, test avg acc: 0.823366
+train total time is 5.155611991882324
+Train 133, loss: 1.640210, train acc: 0.865432, train avg acc: 0.791644
+test total time is 0.9027004241943359
+Test 133, loss: 1.571621, test acc: 0.875203, test avg acc: 0.818634
+train total time is 5.4625701904296875
+Train 134, loss: 1.636078, train acc: 0.866450, train avg acc: 0.794151
+test total time is 0.8394231796264648
+Test 134, loss: 1.559519, test acc: 0.880875, test avg acc: 0.827552
+train total time is 5.433283567428589
+Train 135, loss: 1.633745, train acc: 0.868180, train avg acc: 0.796478
+test total time is 0.8941977024078369
+Test 135, loss: 1.580077, test acc: 0.877229, test avg acc: 0.815023
+train total time is 5.4928107261657715
+Train 136, loss: 1.638528, train acc: 0.866348, train avg acc: 0.793849
+test total time is 0.8569748401641846
+Test 136, loss: 1.555749, test acc: 0.886953, test avg acc: 0.831250
+train total time is 5.483367443084717
+Train 137, loss: 1.632032, train acc: 0.865126, train avg acc: 0.794166
+test total time is 0.8863036632537842
+Test 137, loss: 1.557988, test acc: 0.879254, test avg acc: 0.830267
+train total time is 5.4236226081848145
+Train 138, loss: 1.628253, train acc: 0.870419, train avg acc: 0.801775
+test total time is 0.8577179908752441
+Test 138, loss: 1.551323, test acc: 0.890194, test avg acc: 0.837506
+train total time is 5.458269119262695
+Train 139, loss: 1.635716, train acc: 0.864515, train avg acc: 0.790402
+test total time is 0.8934779167175293
+Test 139, loss: 1.544125, test acc: 0.890600, test avg acc: 0.841099
+train total time is 5.154517412185669
+Train 140, loss: 1.628875, train acc: 0.866857, train avg acc: 0.796067
+test total time is 0.8317158222198486
+Test 140, loss: 1.553504, test acc: 0.876823, test avg acc: 0.838727
+train total time is 5.442131042480469
+Train 141, loss: 1.624790, train acc: 0.871844, train avg acc: 0.801360
+test total time is 0.8650155067443848
+Test 141, loss: 1.559991, test acc: 0.882901, test avg acc: 0.825645
+train total time is 5.345149517059326
+Train 142, loss: 1.619929, train acc: 0.871234, train avg acc: 0.804237
+test total time is 0.8671014308929443
+Test 142, loss: 1.538133, test acc: 0.891410, test avg acc: 0.837547
+train total time is 5.462475299835205
+Train 143, loss: 1.623906, train acc: 0.873677, train avg acc: 0.809906
+test total time is 0.8768372535705566
+Test 143, loss: 1.548151, test acc: 0.885737, test avg acc: 0.841762
+train total time is 5.321930885314941
+Train 144, loss: 1.616555, train acc: 0.868994, train avg acc: 0.802387
+test total time is 0.8473963737487793
+Test 144, loss: 1.570418, test acc: 0.881280, test avg acc: 0.827093
+train total time is 5.469741344451904
+Train 145, loss: 1.617045, train acc: 0.871946, train avg acc: 0.801796
+test total time is 0.8899378776550293
+Test 145, loss: 1.539867, test acc: 0.888169, test avg acc: 0.848384
+train total time is 5.507074594497681
+Train 146, loss: 1.617171, train acc: 0.872964, train avg acc: 0.805796
+test total time is 0.905024528503418
+Test 146, loss: 1.526127, test acc: 0.900324, test avg acc: 0.846930
+Model Save: checkpoints/train/models/model.t7train total time is 5.216545343399048
+Train 147, loss: 1.624217, train acc: 0.871946, train avg acc: 0.806085
+test total time is 0.8499009609222412
+Test 147, loss: 1.553529, test acc: 0.880875, test avg acc: 0.818035
+train total time is 5.459130048751831
+Train 148, loss: 1.611683, train acc: 0.877443, train avg acc: 0.814230
+test total time is 0.8544092178344727
+Test 148, loss: 1.547012, test acc: 0.880875, test avg acc: 0.830884
+train total time is 5.481165170669556
+Train 149, loss: 1.616080, train acc: 0.874898, train avg acc: 0.807957
+test total time is 0.9604282379150391
+Test 149, loss: 1.543835, test acc: 0.887358, test avg acc: 0.838977
+train total time is 5.408076286315918
+Train 150, loss: 1.612231, train acc: 0.878359, train avg acc: 0.815620
+test total time is 0.9060361385345459
+Test 150, loss: 1.551132, test acc: 0.880875, test avg acc: 0.835692
+train total time is 5.418254613876343
+Train 151, loss: 1.612100, train acc: 0.877647, train avg acc: 0.816268
+test total time is 0.8478984832763672
+Test 151, loss: 1.539026, test acc: 0.889384, test avg acc: 0.834640
+train total time is 5.47510290145874
+Train 152, loss: 1.610552, train acc: 0.878054, train avg acc: 0.811617
+test total time is 0.9862096309661865
+Test 152, loss: 1.521958, test acc: 0.898298, test avg acc: 0.845971
+train total time is 5.485281944274902
+Train 153, loss: 1.603848, train acc: 0.879682, train avg acc: 0.815245
+test total time is 0.888322114944458
+Test 153, loss: 1.537838, test acc: 0.895057, test avg acc: 0.847000
+train total time is 5.327268838882446
+Train 154, loss: 1.603806, train acc: 0.878868, train avg acc: 0.815251
+test total time is 0.8158645629882812
+Test 154, loss: 1.533146, test acc: 0.897083, test avg acc: 0.841314
+train total time is 5.280229330062866
+Train 155, loss: 1.601467, train acc: 0.883652, train avg acc: 0.817932
+test total time is 0.87868332862854
+Test 155, loss: 1.553142, test acc: 0.882091, test avg acc: 0.831209
+train total time is 5.303135633468628
+Train 156, loss: 1.604507, train acc: 0.882736, train avg acc: 0.816077
+test total time is 0.8596510887145996
+Test 156, loss: 1.566812, test acc: 0.865478, test avg acc: 0.817349
+train total time is 5.434907913208008
+Train 157, loss: 1.606175, train acc: 0.878970, train avg acc: 0.817089
+test total time is 0.8577194213867188
+Test 157, loss: 1.545083, test acc: 0.887763, test avg acc: 0.837442
+train total time is 5.322963714599609
+Train 158, loss: 1.593630, train acc: 0.883958, train avg acc: 0.823299
+test total time is 0.8943939208984375
+Test 158, loss: 1.533946, test acc: 0.891410, test avg acc: 0.851227
+train total time is 5.396614074707031
+Train 159, loss: 1.600178, train acc: 0.882431, train avg acc: 0.821381
+test total time is 0.8880698680877686
+Test 159, loss: 1.550804, test acc: 0.883712, test avg acc: 0.841436
+train total time is 5.5470685958862305
+Train 160, loss: 1.594620, train acc: 0.882533, train avg acc: 0.819770
+test total time is 0.8705554008483887
+Test 160, loss: 1.524799, test acc: 0.891005, test avg acc: 0.843343
+train total time is 5.45109486579895
+Train 161, loss: 1.590391, train acc: 0.886197, train avg acc: 0.824661
+test total time is 0.8668529987335205
+Test 161, loss: 1.549127, test acc: 0.881280, test avg acc: 0.830878
+train total time is 5.260880947113037
+Train 162, loss: 1.597978, train acc: 0.882533, train avg acc: 0.820778
+test total time is 0.8266561031341553
+Test 162, loss: 1.539445, test acc: 0.889384, test avg acc: 0.847645
+train total time is 5.4712815284729
+Train 163, loss: 1.582800, train acc: 0.890778, train avg acc: 0.826980
+test total time is 0.8587930202484131
+Test 163, loss: 1.541654, test acc: 0.884927, test avg acc: 0.838878
+train total time is 5.475586652755737
+Train 164, loss: 1.588611, train acc: 0.883042, train avg acc: 0.825912
+test total time is 0.9059724807739258
+Test 164, loss: 1.525467, test acc: 0.893436, test avg acc: 0.842297
+train total time is 5.461447477340698
+Train 165, loss: 1.585141, train acc: 0.887520, train avg acc: 0.825272
+test total time is 0.8657360076904297
+Test 165, loss: 1.517958, test acc: 0.898298, test avg acc: 0.852209
+train total time is 5.434301376342773
+Train 166, loss: 1.584780, train acc: 0.888640, train avg acc: 0.826530
+test total time is 0.8232800960540771
+Test 166, loss: 1.533320, test acc: 0.891815, test avg acc: 0.848140
+train total time is 5.434679746627808
+Train 167, loss: 1.586757, train acc: 0.883449, train avg acc: 0.819319
+test total time is 0.8474388122558594
+Test 167, loss: 1.549181, test acc: 0.886548, test avg acc: 0.846076
+train total time is 5.40399694442749
+Train 168, loss: 1.587871, train acc: 0.884467, train avg acc: 0.823063
+test total time is 0.8696024417877197
+Test 168, loss: 1.533940, test acc: 0.893436, test avg acc: 0.846081
+train total time is 5.266021251678467
+Train 169, loss: 1.579262, train acc: 0.889251, train avg acc: 0.831101
+test total time is 0.9198358058929443
+Test 169, loss: 1.532383, test acc: 0.892626, test avg acc: 0.842465
+train total time is 5.508461952209473
+Train 170, loss: 1.577806, train acc: 0.893730, train avg acc: 0.837632
+test total time is 0.9012534618377686
+Test 170, loss: 1.525949, test acc: 0.891005, test avg acc: 0.839529
+train total time is 5.516681671142578
+Train 171, loss: 1.573931, train acc: 0.894442, train avg acc: 0.836986
+test total time is 0.8825914859771729
+Test 171, loss: 1.518147, test acc: 0.892220, test avg acc: 0.843058
+train total time is 5.513505458831787
+Train 172, loss: 1.572594, train acc: 0.895358, train avg acc: 0.839918
+test total time is 0.8515982627868652
+Test 172, loss: 1.511739, test acc: 0.894652, test avg acc: 0.835465
+train total time is 5.484989643096924
+Train 173, loss: 1.573126, train acc: 0.895765, train avg acc: 0.838170
+test total time is 0.8683722019195557
+Test 173, loss: 1.520059, test acc: 0.895867, test avg acc: 0.850971
+train total time is 5.445837020874023
+Train 174, loss: 1.568133, train acc: 0.896071, train avg acc: 0.839878
+test total time is 0.8622539043426514
+Test 174, loss: 1.501670, test acc: 0.903566, test avg acc: 0.853628
+Model Save: checkpoints/train/models/model.t7train total time is 5.200001001358032
+Train 175, loss: 1.572941, train acc: 0.892508, train avg acc: 0.837100
+test total time is 0.8264362812042236
+Test 175, loss: 1.523821, test acc: 0.895462, test avg acc: 0.851140
+train total time is 5.440718173980713
+Train 176, loss: 1.573151, train acc: 0.892508, train avg acc: 0.835380
+test total time is 0.8933405876159668
+Test 176, loss: 1.510974, test acc: 0.895462, test avg acc: 0.841762
+train total time is 5.4519336223602295
+Train 177, loss: 1.567981, train acc: 0.895460, train avg acc: 0.838015
+test total time is 0.865910530090332
+Test 177, loss: 1.512852, test acc: 0.893841, test avg acc: 0.854890
+train total time is 5.4329023361206055
+Train 178, loss: 1.568967, train acc: 0.894951, train avg acc: 0.839004
+test total time is 0.8329684734344482
+Test 178, loss: 1.514874, test acc: 0.894652, test avg acc: 0.855674
+train total time is 5.4706130027771
+Train 179, loss: 1.563821, train acc: 0.897903, train avg acc: 0.839603
+test total time is 0.8781843185424805
+Test 179, loss: 1.500318, test acc: 0.896677, test avg acc: 0.843721
+train total time is 5.35209584236145
+Train 180, loss: 1.562979, train acc: 0.896682, train avg acc: 0.839160
+test total time is 0.8665308952331543
+Test 180, loss: 1.506054, test acc: 0.904376, test avg acc: 0.862384
+Model Save: checkpoints/train/models/model.t7train total time is 5.527350664138794
+Train 181, loss: 1.563393, train acc: 0.896274, train avg acc: 0.844353
+test total time is 0.9369945526123047
+Test 181, loss: 1.514937, test acc: 0.895057, test avg acc: 0.847140
+train total time is 5.143232345581055
+Train 182, loss: 1.563587, train acc: 0.895257, train avg acc: 0.838902
+test total time is 0.862372636795044
+Test 182, loss: 1.511490, test acc: 0.897488, test avg acc: 0.851953
+train total time is 5.492944955825806
+Train 183, loss: 1.559072, train acc: 0.899735, train avg acc: 0.845857
+test total time is 0.868560791015625
+Test 183, loss: 1.533548, test acc: 0.889384, test avg acc: 0.847977
+train total time is 5.39778208732605
+Train 184, loss: 1.562409, train acc: 0.896783, train avg acc: 0.838669
+test total time is 0.8484783172607422
+Test 184, loss: 1.511907, test acc: 0.891410, test avg acc: 0.848186
+train total time is 5.395909070968628
+Train 185, loss: 1.555674, train acc: 0.902280, train avg acc: 0.848762
+test total time is 0.8408820629119873
+Test 185, loss: 1.520310, test acc: 0.887358, test avg acc: 0.849471
+train total time is 5.549135208129883
+Train 186, loss: 1.557994, train acc: 0.898921, train avg acc: 0.846032
+test total time is 0.8991580009460449
+Test 186, loss: 1.509840, test acc: 0.895462, test avg acc: 0.855337
+train total time is 5.421253204345703
+Train 187, loss: 1.552006, train acc: 0.902789, train avg acc: 0.848973
+test total time is 0.8674623966217041
+Test 187, loss: 1.504457, test acc: 0.894652, test avg acc: 0.841384
+train total time is 5.4066197872161865
+Train 188, loss: 1.557680, train acc: 0.899430, train avg acc: 0.849417
+test total time is 0.9914889335632324
+Test 188, loss: 1.501596, test acc: 0.899109, test avg acc: 0.851552
+train total time is 5.1865692138671875
+Train 189, loss: 1.554118, train acc: 0.897903, train avg acc: 0.845916
+test total time is 0.9406094551086426
+Test 189, loss: 1.504893, test acc: 0.900324, test avg acc: 0.852006
+train total time is 5.4177305698394775
+Train 190, loss: 1.544998, train acc: 0.907064, train avg acc: 0.857617
+test total time is 0.9447200298309326
+Test 190, loss: 1.511191, test acc: 0.895867, test avg acc: 0.860145
+train total time is 5.453531742095947
+Train 191, loss: 1.553375, train acc: 0.900651, train avg acc: 0.847730
+test total time is 0.8944964408874512
+Test 191, loss: 1.512040, test acc: 0.895057, test avg acc: 0.848517
+train total time is 5.44818639755249
+Train 192, loss: 1.547041, train acc: 0.906148, train avg acc: 0.855925
+test total time is 0.8408102989196777
+Test 192, loss: 1.499367, test acc: 0.897083, test avg acc: 0.844424
+train total time is 5.422430753707886
+Train 193, loss: 1.546972, train acc: 0.904011, train avg acc: 0.853131
+test total time is 0.9798405170440674
+Test 193, loss: 1.498056, test acc: 0.901540, test avg acc: 0.860047
+train total time is 5.436784267425537
+Train 194, loss: 1.548469, train acc: 0.903298, train avg acc: 0.853410
+test total time is 0.9444742202758789
+Test 194, loss: 1.498309, test acc: 0.900324, test avg acc: 0.865762
+train total time is 5.289323806762695
+Train 195, loss: 1.535806, train acc: 0.909304, train avg acc: 0.859305
+test total time is 0.8871550559997559
+Test 195, loss: 1.499350, test acc: 0.897893, test avg acc: 0.855047
+train total time is 5.214185953140259
+Train 196, loss: 1.547190, train acc: 0.902586, train avg acc: 0.850344
+test total time is 0.8315887451171875
+Test 196, loss: 1.507346, test acc: 0.893436, test avg acc: 0.853087
+train total time is 5.525960445404053
+Train 197, loss: 1.538805, train acc: 0.907879, train avg acc: 0.859184
+test total time is 0.8460497856140137
+Test 197, loss: 1.494750, test acc: 0.904781, test avg acc: 0.868134
+Model Save: checkpoints/train/models/model.t7train total time is 5.438461780548096
+Train 198, loss: 1.537343, train acc: 0.907777, train avg acc: 0.858620
+test total time is 0.8654067516326904
+Test 198, loss: 1.501335, test acc: 0.900324, test avg acc: 0.857221
+train total time is 5.48248291015625
+Train 199, loss: 1.543393, train acc: 0.904214, train avg acc: 0.853262
+test total time is 0.8713815212249756
+Test 199, loss: 1.499215, test acc: 0.895867, test avg acc: 0.848587
+train total time is 5.367812156677246
+Train 200, loss: 1.534167, train acc: 0.911747, train avg acc: 0.864225
+test total time is 0.9063804149627686
+Test 200, loss: 1.503306, test acc: 0.897488, test avg acc: 0.856180
+train total time is 5.4946112632751465
+Train 201, loss: 1.536654, train acc: 0.908998, train avg acc: 0.862436
+test total time is 0.8784034252166748
+Test 201, loss: 1.496903, test acc: 0.899514, test avg acc: 0.857721
+train total time is 5.442275524139404
+Train 202, loss: 1.540081, train acc: 0.905029, train avg acc: 0.853655
+test total time is 0.8778879642486572
+Test 202, loss: 1.496240, test acc: 0.901540, test avg acc: 0.855831
+train total time is 5.296884298324585
+Train 203, loss: 1.532329, train acc: 0.910729, train avg acc: 0.863563
+test total time is 0.8559446334838867
+Test 203, loss: 1.492509, test acc: 0.903566, test avg acc: 0.855384
+train total time is 5.440582990646362
+Train 204, loss: 1.531992, train acc: 0.909202, train avg acc: 0.861598
+test total time is 0.8569719791412354
+Test 204, loss: 1.490372, test acc: 0.898298, test avg acc: 0.859337
+train total time is 5.428357124328613
+Train 205, loss: 1.530926, train acc: 0.912052, train avg acc: 0.865008
+test total time is 0.8283495903015137
+Test 205, loss: 1.498318, test acc: 0.896272, test avg acc: 0.854802
+train total time is 5.416716814041138
+Train 206, loss: 1.531802, train acc: 0.907879, train avg acc: 0.860832
+test total time is 0.879356861114502
+Test 206, loss: 1.493887, test acc: 0.900729, test avg acc: 0.858715
+train total time is 5.562519311904907
+Train 207, loss: 1.527125, train acc: 0.912154, train avg acc: 0.863898
+test total time is 0.8370347023010254
+Test 207, loss: 1.493332, test acc: 0.899109, test avg acc: 0.854256
+train total time is 5.5093913078308105
+Train 208, loss: 1.523890, train acc: 0.913986, train avg acc: 0.865444
+test total time is 0.8797280788421631
+Test 208, loss: 1.492321, test acc: 0.906402, test avg acc: 0.860128
+Model Save: checkpoints/train/models/model.t7train total time is 5.444432020187378
+Train 209, loss: 1.524002, train acc: 0.909813, train avg acc: 0.859585
+test total time is 0.8491537570953369
+Test 209, loss: 1.500286, test acc: 0.899109, test avg acc: 0.856349
+train total time is 5.14845609664917
+Train 210, loss: 1.517332, train acc: 0.918974, train avg acc: 0.873812
+test total time is 0.8703484535217285
+Test 210, loss: 1.493613, test acc: 0.897893, test avg acc: 0.854547
+train total time is 5.333003520965576
+Train 211, loss: 1.523381, train acc: 0.913070, train avg acc: 0.863635
+test total time is 0.9023127555847168
+Test 211, loss: 1.493354, test acc: 0.899919, test avg acc: 0.863721
+train total time is 5.446908473968506
+Train 212, loss: 1.519688, train acc: 0.914597, train avg acc: 0.869809
+test total time is 0.8579373359680176
+Test 212, loss: 1.490290, test acc: 0.903566, test avg acc: 0.861215
+train total time is 5.360888957977295
+Train 213, loss: 1.520075, train acc: 0.915208, train avg acc: 0.869397
+test total time is 0.8283367156982422
+Test 213, loss: 1.493224, test acc: 0.905186, test avg acc: 0.859419
+train total time is 5.5033118724823
+Train 214, loss: 1.519758, train acc: 0.916022, train avg acc: 0.869082
+test total time is 0.8881978988647461
+Test 214, loss: 1.489260, test acc: 0.903566, test avg acc: 0.859378
+train total time is 5.398816347122192
+Train 215, loss: 1.515037, train acc: 0.918872, train avg acc: 0.875645
+test total time is 0.8484702110290527
+Test 215, loss: 1.491662, test acc: 0.903160, test avg acc: 0.860884
+train total time is 5.408332109451294
+Train 216, loss: 1.515244, train acc: 0.916735, train avg acc: 0.872564
+test total time is 0.8711223602294922
+Test 216, loss: 1.489529, test acc: 0.903971, test avg acc: 0.863424
+train total time is 5.244936943054199
+Train 217, loss: 1.518092, train acc: 0.917447, train avg acc: 0.873653
+test total time is 0.8532562255859375
+Test 217, loss: 1.496110, test acc: 0.900324, test avg acc: 0.858221
+train total time is 5.485348701477051
+Train 218, loss: 1.519930, train acc: 0.916124, train avg acc: 0.870954
+test total time is 0.8609001636505127
+Test 218, loss: 1.490280, test acc: 0.897893, test avg acc: 0.854634
+train total time is 5.456211805343628
+Train 219, loss: 1.513363, train acc: 0.917854, train avg acc: 0.873635
+test total time is 0.8348743915557861
+Test 219, loss: 1.492518, test acc: 0.899514, test avg acc: 0.858843
+train total time is 6.828761100769043
+Train 220, loss: 1.508092, train acc: 0.920501, train avg acc: 0.875960
+test total time is 0.9062259197235107
+Test 220, loss: 1.483645, test acc: 0.904376, test avg acc: 0.864919
+train total time is 5.363253831863403
+Train 221, loss: 1.512164, train acc: 0.920704, train avg acc: 0.878739
+test total time is 0.8866124153137207
+Test 221, loss: 1.487157, test acc: 0.902755, test avg acc: 0.865878
+train total time is 5.542422533035278
+Train 222, loss: 1.513833, train acc: 0.918770, train avg acc: 0.873456
+test total time is 0.8386096954345703
+Test 222, loss: 1.481792, test acc: 0.902350, test avg acc: 0.862547
+train total time is 5.44518256187439
+Train 223, loss: 1.506159, train acc: 0.923555, train avg acc: 0.882637
+test total time is 0.8624112606048584
+Test 223, loss: 1.486090, test acc: 0.903160, test avg acc: 0.863919
+train total time is 5.291236639022827
+Train 224, loss: 1.512450, train acc: 0.918567, train avg acc: 0.878055
+test total time is 0.8829159736633301
+Test 224, loss: 1.485889, test acc: 0.903160, test avg acc: 0.861924
+train total time is 5.518815755844116
+Train 225, loss: 1.511849, train acc: 0.918465, train avg acc: 0.874231
+test total time is 0.8468122482299805
+Test 225, loss: 1.487009, test acc: 0.905997, test avg acc: 0.866634
+train total time is 5.536895513534546
+Train 226, loss: 1.506430, train acc: 0.919279, train avg acc: 0.874166
+test total time is 0.8519561290740967
+Test 226, loss: 1.482553, test acc: 0.901540, test avg acc: 0.863093
+train total time is 5.407890796661377
+Train 227, loss: 1.507721, train acc: 0.922231, train avg acc: 0.880552
+test total time is 0.8788676261901855
+Test 227, loss: 1.481400, test acc: 0.905592, test avg acc: 0.862837
+train total time is 5.43131160736084
+Train 228, loss: 1.509893, train acc: 0.919381, train avg acc: 0.871946
+test total time is 0.8382766246795654
+Test 228, loss: 1.486607, test acc: 0.903971, test avg acc: 0.865715
+train total time is 5.396493673324585
+Train 229, loss: 1.503831, train acc: 0.922740, train avg acc: 0.878993
+test total time is 0.8851499557495117
+Test 229, loss: 1.485550, test acc: 0.901540, test avg acc: 0.858052
+train total time is 5.389882326126099
+Train 230, loss: 1.507303, train acc: 0.921621, train avg acc: 0.879868
+test total time is 0.9094679355621338
+Test 230, loss: 1.484760, test acc: 0.903160, test avg acc: 0.860215
+train total time is 5.3732757568359375
+Train 231, loss: 1.499550, train acc: 0.925794, train avg acc: 0.885292
+test total time is 0.8508255481719971
+Test 231, loss: 1.481566, test acc: 0.905186, test avg acc: 0.863424
+train total time is 5.479860782623291
+Train 232, loss: 1.495070, train acc: 0.927932, train avg acc: 0.889559
+test total time is 0.843672513961792
+Test 232, loss: 1.483563, test acc: 0.900729, test avg acc: 0.859797
+train total time is 5.446524143218994
+Train 233, loss: 1.509536, train acc: 0.922028, train avg acc: 0.879137
+test total time is 0.9042186737060547
+Test 233, loss: 1.481755, test acc: 0.903566, test avg acc: 0.862215
+train total time is 5.412010669708252
+Train 234, loss: 1.502840, train acc: 0.925794, train avg acc: 0.885082
+test total time is 0.8375000953674316
+Test 234, loss: 1.481229, test acc: 0.905186, test avg acc: 0.867134
+train total time is 5.4646759033203125
+Train 235, loss: 1.502543, train acc: 0.922537, train avg acc: 0.881566
+test total time is 0.8496890068054199
+Test 235, loss: 1.481804, test acc: 0.904376, test avg acc: 0.863087
+train total time is 5.452261686325073
+Train 236, loss: 1.501301, train acc: 0.923758, train avg acc: 0.883411
+test total time is 0.8650553226470947
+Test 236, loss: 1.482665, test acc: 0.904781, test avg acc: 0.861297
+train total time is 5.301854133605957
+Train 237, loss: 1.504080, train acc: 0.923046, train avg acc: 0.879423
+test total time is 0.8608748912811279
+Test 237, loss: 1.479779, test acc: 0.907618, test avg acc: 0.867628
+Model Save: checkpoints/train/models/model.t7train total time is 5.397406816482544
+Train 238, loss: 1.498888, train acc: 0.925794, train avg acc: 0.883242
+test total time is 0.861379861831665
+Test 238, loss: 1.482166, test acc: 0.903566, test avg acc: 0.860128
+train total time is 5.416524410247803
+Train 239, loss: 1.496379, train acc: 0.926405, train avg acc: 0.885254
+test total time is 0.9113802909851074
+Test 239, loss: 1.481584, test acc: 0.904781, test avg acc: 0.864087
+train total time is 5.478377103805542
+Train 240, loss: 1.504640, train acc: 0.921417, train avg acc: 0.879486
+test total time is 0.9050819873809814
+Test 240, loss: 1.481017, test acc: 0.906807, test avg acc: 0.864547
+train total time is 5.445040225982666
+Train 241, loss: 1.499558, train acc: 0.925998, train avg acc: 0.884717
+test total time is 0.8542439937591553
+Test 241, loss: 1.483795, test acc: 0.906807, test avg acc: 0.864297
+train total time is 5.463566541671753
+Train 242, loss: 1.507393, train acc: 0.922435, train avg acc: 0.881407
+test total time is 0.8410680294036865
+Test 242, loss: 1.480670, test acc: 0.904781, test avg acc: 0.865087
+train total time is 5.518527030944824
+Train 243, loss: 1.499134, train acc: 0.925387, train avg acc: 0.886166
+test total time is 0.8528709411621094
+Test 243, loss: 1.480971, test acc: 0.905997, test avg acc: 0.864878
+train total time is 5.193831443786621
+Train 244, loss: 1.495591, train acc: 0.926405, train avg acc: 0.883743
+test total time is 0.8417408466339111
+Test 244, loss: 1.480526, test acc: 0.906402, test avg acc: 0.866209
+train total time is 5.4418535232543945
+Train 245, loss: 1.502690, train acc: 0.922537, train avg acc: 0.881824
+test total time is 0.8393800258636475
+Test 245, loss: 1.482213, test acc: 0.903971, test avg acc: 0.863378
+train total time is 5.439678430557251
+Train 246, loss: 1.498469, train acc: 0.923962, train avg acc: 0.882956
+test total time is 0.8613336086273193
+Test 246, loss: 1.482442, test acc: 0.903566, test avg acc: 0.861169
+train total time is 5.471653699874878
+Train 247, loss: 1.498186, train acc: 0.925998, train avg acc: 0.887204
+test total time is 0.905611515045166
+Test 247, loss: 1.478632, test acc: 0.904376, test avg acc: 0.862506
+train total time is 5.544484615325928
+Train 248, loss: 1.500835, train acc: 0.925998, train avg acc: 0.886224
+test total time is 0.8447372913360596
+Test 248, loss: 1.480264, test acc: 0.904376, test avg acc: 0.864669
+train total time is 5.502316474914551
+Train 249, loss: 1.495296, train acc: 0.928339, train avg acc: 0.888736
+test total time is 0.932666540145874
+Test 249, loss: 1.480871, test acc: 0.905592, test avg acc: 0.864837

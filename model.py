@@ -32,7 +32,6 @@ class Pct(nn.Module):
         self.bn2 = nn.BatchNorm1d(64)
         self.gather_local_0 = Local_op(in_channels=128, out_channels=128)
         self.gather_local_1 = Local_op(in_channels=256, out_channels=256)
-
         self.pt_last = Point_Transformer_Last(args)
 
         self.conv_fuse = nn.Sequential(nn.Conv1d(1280, 1024, kernel_size=1, bias=False),
@@ -52,18 +51,31 @@ class Pct(nn.Module):
         xyz = x.permute(0, 2, 1)
         batch_size, _, _ = x.size()
         # B, D, N
-        x = F.relu(self.bn1(self.conv1(x)))
-        # B, D, N
-        x = F.relu(self.bn2(self.conv2(x))) # [b 64 N]
-        x = x.permute(0, 2, 1)
-        new_xyz, new_feature = sample_and_group(npoint=512, radius=0.15, nsample=32, xyz=xyz, points=x)         
-        feature_0 = self.gather_local_0(new_feature) # [b 128 N ]
-        feature = feature_0.permute(0, 2, 1)
-        new_xyz, new_feature = sample_and_group(npoint=256, radius=0.2, nsample=32, xyz=new_xyz, points=feature) # [b 256 N]
-        feature_1 = self.gather_local_1(new_feature)
+        """
+        self.conv1 = nn.Conv1d(3, 64, kernel_size=1, bias=False)
+        self.conv2 = nn.Conv1d(64, 64, kernel_size=1, bias=False)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.bn2 = nn.BatchNorm1d(64)
+        self.gather_local_0 = Local_op(in_channels=128, out_channels=128)
+        self.gather_local_1 = Local_op(in_channels=256, out_channels=256)
+        """
+        x = F.relu(self.bn1(self.conv1(x))) # [b 3 N ] -> [ b 64 N]
+        x = F.relu(self.bn2(self.conv2(x))) # [b 64 N] -> [b 64 N]
+        x = x.permute(0, 2, 1) # [B  N  64]
 
-        x = self.pt_last(feature_1)
-        x = torch.cat([x, feature_1], dim=1)
+        # [B, npoint, nsample, 128]
+        new_xyz, new_feature = sample_and_group(npoint=512, radius=0.15,
+                                                nsample=32, xyz=xyz, points=x)
+        feature_0 = self.gather_local_0(new_feature) # [b 128 N ]
+        feature = feature_0.permute(0, 2, 1) # [B N 128]
+
+        # [B, npoint, nsample, 256]
+        new_xyz, new_feature = sample_and_group(npoint=256, radius=0.2,
+                                                nsample=32, xyz=new_xyz, points=feature)
+        feature_1 = self.gather_local_1(new_feature) # [B 256 N ]
+
+        x = self.pt_last(feature_1)  # [B 1024 N]
+        x = torch.cat([x, feature_1], dim=1)  # [B 1280 N]
         x = self.conv_fuse(x)
         x = F.adaptive_max_pool1d(x, 1).view(batch_size, -1)
         x = F.leaky_relu(self.bn6(self.linear1(x)), negative_slope=0.2)
@@ -123,18 +135,23 @@ class SA_Layer(nn.Module):
         self.softmax = nn.Softmax(dim=-1)
 
     def forward(self, x):
-        # b, n, c
+        """
+        self.q_conv.weight = self.k_conv.weight
+        self.q_conv.bias = self.k_conv.bias
+        """
         x_q = self.q_conv(x).permute(0, 2, 1)
-        # b, c, n
         x_k = self.k_conv(x)
         x_v = self.v_conv(x)
         # b, n, n
         energy = torch.bmm(x_q, x_k)
-
         attention = self.softmax(energy)
         attention = attention / (1e-9 + attention.sum(dim=1, keepdim=True))
         # b, c, n
         x_r = torch.bmm(x_v, attention)
+        """
+        self.trans_conv = nn.Conv1d(channels, channels, 1)
+        self.after_norm = nn.BatchNorm1d(channels)
+        """
         x_r = self.act(self.after_norm(self.trans_conv(x - x_r)))
         x = x + x_r
         return x

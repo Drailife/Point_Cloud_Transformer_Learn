@@ -131,7 +131,6 @@ class SA_Layer(nn.Module):
         energy = energy / math.sqrt(k_c)
         # print('energy2:', energy)
         attention = self.softmax(energy)
-        x_r = torch.bmm(x_v, attention)
-        x_r = self.act(self.after_norm(self.trans_conv(x - x_r)))
+        x_r = self.act(self.after_norm(self.trans_conv(x)))
         x = x + x_r
         return x
